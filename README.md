@@ -1,12 +1,12 @@
 [![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
 
-Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object> _autoequalProps` extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
+Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object> _autoequalProps` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 
 ## Usage
 
 #### In your `pubspec.yaml` file:
-- Add to `dependencies` section `autoequal: ^0.1.0`
-- Add to `dev_dependencies` section `autoequal_gen: ^0.1.0`
+- Add to `dependencies` section `autoequal: ^0.1.1`
+- Add to `dev_dependencies` section `autoequal_gen: ^0.1.1`
 - Add to `dev_dependencies` section `build_runner: ^1.10.4`
 - Set `environment` to at least Dart 2.9.0 version like so: `">=2.9.0 <3.0.0"`
 
@@ -22,15 +22,15 @@ environment:
 
 dependencies:
   ...
-  autoequal: ^0.1.0
+  autoequal: ^0.1.1
   
 dev_dependencies:
   ...
   build_runner: ^1.10.4
-  autoequal_gen: ^0.1.0
+  autoequal_gen: ^0.1.1
 ```
 
-#### Annotate your class with `autoequal` annotation:
+#### Annotate your class with `@autoequal` annotation:
 
 ```dart
 import 'package:autoequal/autoequal.dart';
@@ -68,7 +68,7 @@ part of 'some_class.dart';
 // AutoequalGenerator
 // **************************************************************************
 
-extension SomeClassAutoequal on SomeClass {
+extension _$SomeClassAutoequal on SomeClass {
   List<Object> get _autoequalProps => [id];
 }
 
@@ -76,9 +76,29 @@ extension SomeClassAutoequal on SomeClass {
 
 ## Additional features
 
+#### Autoequal mixin
+
+The `@autoequalMixin` or `@Autoequal(generateMixin: true)` will additionally generate a mixin class.
+```dart
+mixin _$SomeClassAutoequalMixin on Equatable {
+  @override
+  List<Object> get props => _$SomeClassAutoequal(this)._autoequalProps;
+}
+```
+
+To use it just add it to your class:
+```dart
+@autoequalMixin
+class SomeClass extends Equatable with _$SomeClassAutoequalMixin {
+  final String id;
+
+  SomeClass({this.id});
+}
+```
+
 #### Ignore field
 
-The `autoequal` will exclude any field annotated with `ignoreAutoequal`.
+The `autoequal` will exclude any field annotated with `@ignoreAutoequal`.
 ```dart
 @ignoreAutoequal
 final int random;

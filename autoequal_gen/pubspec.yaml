@@ -1,6 +1,6 @@
 name: autoequal_gen
 description: Dart codegenerator for Equatable.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/sunnydaydev/autoequal
 
 environment:
@@ -10,7 +10,7 @@ dependencies:
   analyzer: ^0.40.5
   build: ^1.5.0
   source_gen: ^0.9.8
-  autoequal: ^0.1.0
+  autoequal: ^0.1.1
   equatable: ^1.2.5
 
 dev_dependencies:
