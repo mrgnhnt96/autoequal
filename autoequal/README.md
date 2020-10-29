@@ -5,8 +5,8 @@ Provides [Dart Build System](https://pub.dev/packages/build) builder for generat
 ## Usage
 
 #### In your `pubspec.yaml` file:
-- Add to `dependencies` section `autoequal: ^0.1.1`
-- Add to `dev_dependencies` section `autoequal_gen: ^0.1.1`
+- Add to `dependencies` section `autoequal: ^0.1.2`
+- Add to `dev_dependencies` section `autoequal_gen: ^0.1.2`
 - Add to `dev_dependencies` section `build_runner: ^1.10.4`
 - Set `environment` to at least Dart 2.9.0 version like so: `">=2.9.0 <3.0.0"`
 
@@ -22,12 +22,12 @@ environment:
 
 dependencies:
   ...
-  autoequal: ^0.1.1
+  autoequal: ^0.1.2
   
 dev_dependencies:
   ...
   build_runner: ^1.10.4
-  autoequal_gen: ^0.1.1
+  autoequal_gen: ^0.1.2
 ```
 
 #### Annotate your class with `@autoequal` annotation:
@@ -78,7 +78,7 @@ extension _$SomeClassAutoequal on SomeClass {
 
 #### Autoequal mixin
 
-The `@autoequalMixin` or `@Autoequal(generateMixin: true)` will additionally generate a mixin class.
+The `@autoequalMixin` or `@Autoequal(mixin: true)` will additionally generate a mixin class.
 ```dart
 mixin _$SomeClassAutoequalMixin on Equatable {
   @override
