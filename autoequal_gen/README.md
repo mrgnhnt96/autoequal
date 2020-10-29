@@ -1,4 +1,4 @@
-[![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
+[![Pub Package](https://img.shields.io/pub/v/autoequal_gen.svg)](https://pub.dev/packages/autoequal_gen)
 
 Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object> _autoequalProps` extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 

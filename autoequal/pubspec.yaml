@@ -1,0 +1,10 @@
+name: autoequal
+description: Dart codegeneration for Equatable.
+version: 0.1.0
+homepage: https://github.com/sunnydaydev/autoequal
+
+environment:
+  sdk: ">=2.9.0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.15.4

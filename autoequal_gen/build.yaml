@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      autoequal_gen|autoequal:
+        enabled: true
+
+builders:
+  autoequal:
+    target: "autoequal_gen"
+    import: "package:autoequal_gen/autoequal_gen.dart"
+    builder_factories: ["autoequalGenerator"]
+    build_extensions: {".dart": [".autoequal.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
