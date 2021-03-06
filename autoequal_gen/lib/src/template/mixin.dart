@@ -10,7 +10,7 @@ class _AutoequalMixinTemplate {
     return '''
       mixin $mixinName on $onTypeName {
         @override
-        List<Object> get props =>
+        List<Object?> get props =>
           $extensionName(this as $className)._autoequalProps;
       }
       ''';

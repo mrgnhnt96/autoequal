@@ -3,12 +3,35 @@ import 'package:equatable/equatable.dart';
 
 part 'some_class.g.dart';
 
-@autoequalMixin
-class SomeClass with EquatableMixin, _$SomeClassAutoequalMixin {
-  final String id;
+@autoequal
+class SomeClass extends Equatable {
+  final String value;
+  final String? optional;
 
   @ignoreAutoequal
-  final String ignoredField;
+  final String? ignored;
 
-  SomeClass({this.id, this.ignoredField,});
+  SomeClass({
+    required this.value,
+    this.ignored,
+    this.optional,
+  });
+
+  @override
+  List<Object?> get props => _autoequalProps;
+}
+
+@autoequalMixin
+class SomeClassMix with EquatableMixin, _$SomeClassMixAutoequalMixin {
+  final String value;
+  final String? optional;
+
+  @ignoreAutoequal
+  final String? ignored;
+
+  SomeClassMix({
+    required this.value,
+    this.ignored,
+    this.optional,
+  });
 }
