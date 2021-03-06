@@ -1,6 +1,6 @@
 [![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
 
-Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object> _autoequalProps` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
+Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object?> _autoequalProps` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 
 ## Usage
 
@@ -45,7 +45,7 @@ class SomeClass extends Equatable {
   SomeClass({this.id, this.random});
 
   @override
-  List<Object> get props => _autoequalProps; //_autoequalProps will be generated
+  List<Object?> get props => _autoequalProps; //_autoequalProps will be generated
 }
 ```
 
@@ -82,7 +82,7 @@ The `@autoequalMixin` or `@Autoequal(mixin: true)` will additionally generate a 
 ```dart
 mixin _$SomeClassAutoequalMixin on Equatable {
   @override
-  List<Object> get props => _$SomeClassAutoequal(this)._autoequalProps;
+  List<Object?> get props => _$SomeClassAutoequal(this)._autoequalProps;
 }
 ```
 
