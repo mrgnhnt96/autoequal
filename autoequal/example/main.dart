@@ -5,10 +5,15 @@ part 'main.g.dart';
 
 @autoequalMixin
 class ExampleClass extends Equatable with _$ExampleClassAutoequalMixin {
-  final String id;
+  final String value;
+  final String? optional;
 
   @ignoreAutoequal
-  final String ignoredField;
+  final String? ignored;
 
-  ExampleClass({this.id, this.ignoredField,});
+  ExampleClass({
+    required this.value,
+    this.ignored,
+    this.optional,
+  });
 }

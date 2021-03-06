@@ -1,12 +1,12 @@
 library generator;
 
 import 'dart:async';
+
 import 'package:analyzer/dart/element/element.dart';
+import 'package:autoequal/autoequal.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:equatable/equatable.dart';
 import 'package:source_gen/source_gen.dart';
-
-import 'package:autoequal/autoequal.dart';
 
 part 'template/extension.dart';
 part 'template/mixin.dart';
@@ -32,9 +32,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     }
 
     final extension = _generateExtension(classElement);
-    if (extension != null) {
-      generated.add(extension);
-    }
+    generated.add(extension);
 
     return generated.join('\n\n');
   }
@@ -42,7 +40,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   ClassElement _ensureReadyForAutoequalClass(Element element) {
     if (element is! ClassElement) throw '$element is not a ClassElement';
 
-    final classElement = element as ClassElement;
+    final classElement = element;
 
     if (classElement.isAbstract) {
       throw "$element is abstract. Autoequal doesn't support abstract classes.";
@@ -55,7 +53,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     return classElement;
   }
 
-  String _generateMixinIfSpecified(
+  String? _generateMixinIfSpecified(
       ClassElement classElement, ConstantReader annotation) {
     final isMixin = annotation.read('mixin').boolValue;
 

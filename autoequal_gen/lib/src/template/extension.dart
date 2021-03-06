@@ -8,7 +8,7 @@ class _AutoequalExtensionTemplate {
 
     return '''
       extension $extensionName on $className {
-        List<Object> get _autoequalProps =>[${props.join(', ')}];
+        List<Object?> get _autoequalProps =>[${props.join(', ')}];
       }
       ''';
   }

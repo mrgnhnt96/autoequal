@@ -4,11 +4,16 @@ import 'package:equatable/equatable.dart';
 part 'main.g.dart';
 
 @autoequalMixin
-class ExampleClass with EquatableMixin, _$ExampleClassAutoequalMixin {
-  final String id;
+class ExampleClass extends Equatable with _$ExampleClassAutoequalMixin {
+  final String value;
+  final String? optional;
 
   @ignoreAutoequal
-  final String ignoredField;
+  final String? ignored;
 
-  ExampleClass({this.id, this.ignoredField,});
+  ExampleClass({
+    required this.value,
+    this.ignored,
+    this.optional,
+  });
 }
