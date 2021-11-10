@@ -2,13 +2,13 @@ name: autoequal
 description: |
   Annotations for codegenerator 'autoequal_gen' to simplify work with 'equatable'.
   It will generate 'List<Object?> props' priviate extensions for all annotated classes.
-version: 0.2.0
+version: 0.3.0
 homepage: https://github.com/sunnydaydev/autoequal
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dev_dependencies:
-  equatable: ^2.0.0
-  test: ^1.16.5
-  pedantic: ^1.11.0
+  equatable: ^2.0.3
+  test: ^1.19.3
+  pedantic: ^1.11.1

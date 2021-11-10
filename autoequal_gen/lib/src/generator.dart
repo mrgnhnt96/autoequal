@@ -79,7 +79,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   bool _isNotIgnoredField(FieldElement element) => !(element.isStatic ||
       element.name == 'props' ||
       _ignore.hasAnnotationOfExact(element) ||
-      _ignore.hasAnnotationOfExact(element.getter));
+      element.getter != null && _ignore.hasAnnotationOfExact(element.getter!));
 
   bool _isNotUseEquatable(ClassElement element) =>
       !(_isEquatable(element) || _isWithEquatableMixin(element));
