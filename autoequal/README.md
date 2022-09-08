@@ -5,10 +5,10 @@ Provides [Dart Build System](https://pub.dev/packages/build) builder for generat
 ## Usage
 
 #### In your `pubspec.yaml` file:
-- Add to `dependencies` section `autoequal: ^0.3.0`
-- Add to `dev_dependencies` section `autoequal_gen: ^0.3.0`
-- Add to `dev_dependencies` section `build_runner: ^2.1.5`
-- Set `environment` to at least Dart 2.12.0 version like so: `">=2.12.0 <3.0.0"`
+- Add to `dependencies` section `autoequal: ^0.4.0`
+- Add to `dev_dependencies` section `autoequal_gen: ^0.4.0`
+- Add to `dev_dependencies` section `build_runner: ^2.2.0`
+- Set `environment` to at least Dart 2.17.0 version like so: `">=2.17.0 <3.0.0"`
 
 Your `pubspec.yaml` should look like so:
 
@@ -18,16 +18,16 @@ description: project description
 version: 1.0.0
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  ...
-  autoequal: ^0.3.0
+  #...
+  autoequal: ^0.4.0
   
 dev_dependencies:
-  ...
-  build_runner: ^2.1.5
-  autoequal_gen: ^0.3.0
+  #...
+  build_runner: ^2.2.0
+  autoequal_gen: ^0.4.0
 ```
 
 #### Annotate your class with `@autoequal` annotation:

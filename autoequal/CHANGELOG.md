@@ -1,5 +1,10 @@
 ## Changelog
 
+#### 0.4.0
+- Dependencies updated
+- build_runner updated to 2.2.0
+- Ready to Dart 2.17
+
 #### 0.3.0
  - build_runner updated to 2.1.5
 
