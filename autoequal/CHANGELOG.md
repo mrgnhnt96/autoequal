@@ -1,5 +1,8 @@
 ## Changelog
 
+#### 0.4.1
+- analyzer updated 
+
 #### 0.4.0
 - Dependencies updated
 - build_runner updated to 2.2.0
