@@ -87,5 +87,5 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   bool _isEquatable(ClassElement element) => _equatable.isSuperOf(element);
 
   bool _isWithEquatableMixin(ClassElement element) =>
-      element.mixins.any((type) => _equatableMixin.isExactly(type.element));
+      element.mixins.any((type) => _equatableMixin.isExactly(type.element2));
 }
