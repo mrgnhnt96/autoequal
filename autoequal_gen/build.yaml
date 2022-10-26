@@ -1,11 +1,13 @@
 targets:
   $default:
     builders:
-      autoequal_gen|autoequal:
+      autoequal_gen:
         enabled: true
+        options:
+          include_getters: false
 
 builders:
-  autoequal:
+  autoequal_gen:
     target: "autoequal_gen"
     import: "package:autoequal_gen/autoequal_gen.dart"
     builder_factories: ["autoequalGenerator"]
