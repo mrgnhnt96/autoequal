@@ -28,7 +28,9 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
 
     final generated = <String>[];
 
-    final mixin = _generateMixin(classElement, annotation);
+    final isMixin = annotation.read('mixin').boolValue;
+
+    final mixin = _generateMixin(classElement, isMixin: isMixin);
     if (mixin != null) {
       generated.add(mixin);
     }
@@ -36,6 +38,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     final extension = _generateExtension(
       classElement,
       includeDeprecated: mixin == null,
+      isMixinAnnotation: isMixin,
     );
     generated.add(extension);
 
@@ -44,13 +47,16 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
 
   String _generateExtension(
     ClassElement classElement, {
+    required bool isMixinAnnotation,
     required bool includeDeprecated,
   }) {
     final name = classElement.name;
 
     final props = classElement.getGetter('props');
 
-    if (classElement.equatableType.isClass && props == null) {
+    if (classElement.equatableType.isClass &&
+        !isMixinAnnotation &&
+        props == null) {
       print('\n[EXT] class "$name" does not have props getter\n');
     }
 
@@ -65,22 +71,19 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     );
   }
 
-  String? _generateMixin(ClassElement classElement, ConstantReader annotation) {
-    final isMixin = annotation.read('mixin').boolValue;
-
+  String? _generateMixin(ClassElement classElement, {required bool isMixin}) {
     final equatableType = classElement.equatableType;
-    if (!equatableType.isMixin) {
+    if (!equatableType.isMixin && !isMixin) {
       return null;
     }
 
     final equatableIsSuper = classElement.equatableIsSuper;
 
-    if (equatableIsSuper) {
-      final props = classElement.getGetter('props');
+    var generateSuperProps = false;
 
-      if (props == null) {
-        print(
-            '\n[MIXIN] class "${classElement.name}" does not have props getter\n');
+    if (equatableIsSuper) {
+      if (classElement.superHasProps) {
+        generateSuperProps = true;
       }
     }
 
@@ -88,6 +91,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
       return _AutoequalMixinTemplate.generate(
         classElement.name,
         equatableType.equatableName!,
+        generateSuperProps: generateSuperProps,
       );
     } else {
       return null;
@@ -192,6 +196,18 @@ extension on ClassElement {
       }
 
       if (!element.equatableType.isNone) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool get superHasProps {
+    for (final superType in allSupertypes) {
+      final element = superType.element;
+
+      if (element.getGetter('props') != null) {
         return true;
       }
     }
