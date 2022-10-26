@@ -1,4 +1,4 @@
-import 'package:example/equatable/inherited.dart';
+import 'package:example/extends/inherited.dart';
 import 'package:test/test.dart';
 
 void main() {

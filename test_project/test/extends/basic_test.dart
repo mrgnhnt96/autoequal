@@ -1,4 +1,4 @@
-import 'package:example/equatable/basic.dart';
+import 'package:example/extends/basic.dart';
 import 'package:test/test.dart';
 
 void main() {

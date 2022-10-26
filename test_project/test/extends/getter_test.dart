@@ -1,4 +1,4 @@
-import 'package:example/equatable/getter.dart';
+import 'package:example/extends/getter.dart';
 import 'package:test/test.dart';
 
 void main() {

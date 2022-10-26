@@ -1,4 +1,4 @@
-import 'package:example/equatable/setter.dart';
+import 'package:example/extends/setter.dart';
 import 'package:test/test.dart';
 
 void main() {

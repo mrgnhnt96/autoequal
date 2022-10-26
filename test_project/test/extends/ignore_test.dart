@@ -1,4 +1,4 @@
-import 'package:example/equatable/ignore.dart';
+import 'package:example/extends/ignore.dart';
 import 'package:test/test.dart';
 
 void main() {
