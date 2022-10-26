@@ -61,7 +61,7 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     }
 
     final autoEqualFields = classElement.fields
-        .where((field) => _isNotIgnoredField(field))
+        .where((field) => _includeField(field))
         .map((e) => e.name);
 
     return _AutoequalExtensionTemplate.generate(
@@ -98,9 +98,9 @@ class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     }
   }
 
-  bool _isNotIgnoredField(FieldElement element) {
+  bool _includeField(FieldElement element) {
     if (element.isStatic) {
-      return true;
+      return false;
     }
 
     if (element.name == 'props') {
