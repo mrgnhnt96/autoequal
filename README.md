@@ -121,8 +121,6 @@ class SomeClass extends Equatable with _$SomeClassAutoequalMixin {
 }
 ```
 
-<sup>If your class has a super class with additional props you'd like to include, you must write the `props` method to include `super.props`</sup>
-
 The two approaches will generate the same code.
 
 ```dart
@@ -161,6 +159,28 @@ class SubClass extends BaseClass {
   List<Object?> get props => [
     ...super.props, // make sure to include the super props!
     ..._$props,
+  ];
+}
+
+// --- OR ---
+
+@autoequalMixin
+class SubClass extends BaseClass with _$SubClassAutoequalMixin {
+  const SubClass({required this.name, required super.id});
+
+  final String name;
+}
+
+// generated code
+extension _$SubClassAutoequal on SubClass {
+  List<Object?> get _$props => [name];
+}
+
+mixin _$SubClassAutoequalMixin on Equatable {
+  @override
+  List<Object?> get props => [
+    ...super.props,
+    ..._$SubClassAutoequal(this as SubClass)._$props,
   ];
 }
 ```
