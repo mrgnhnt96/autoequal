@@ -7,7 +7,7 @@ part 'getter.g.dart';
 class Getter extends Equatable {
   const Getter();
 
-  set one(String newValue) => print(newValue);
+  String get one => 'one';
 
   @override
   List<Object?> get props => _$props;

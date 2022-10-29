@@ -7,5 +7,5 @@ part 'getter.g.dart';
 class Getter with EquatableMixin, _$GetterAutoequalMixin {
   const Getter();
 
-  set one(String newValue) => print(newValue);
+  String get one => 'one';
 }
