@@ -1,0 +1,3 @@
+dependency_overrides:
+  autoequal:
+    path: ../autoequal
