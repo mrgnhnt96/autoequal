@@ -1,5 +1,14 @@
 ## Changelog
 
+#### 0.5.0
+- Added ability to use getters for generated `props`
+- Allowed to use `@autoequal` with abstract class
+- Improved inheritance with `@autoequal`
+- Mixin improvements
+- Generated props name changed to `_$props` to fit the code convention. `_autoequalProps` is now deprecated and will be removed in future releases.
+
+Thanks a lot to [mrgnhnt96](https://github.com/mrgnhnt96) for these changes
+
 #### 0.4.1
 - analyzer updated 
 
