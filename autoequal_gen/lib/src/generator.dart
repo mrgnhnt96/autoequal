@@ -228,8 +228,12 @@ extension _ElementX on Element {
       return false;
     }
 
-    return element.mixins
-        .any((type) => _equatableMixin.isExactly(type.element));
+    return element.mixins.any(
+      // element2 allows for `InterfaceType` override,
+      // and is backwards compatible with `element`
+      // ignore: deprecated_member_use
+      (type) => _equatableMixin.isExactly(type.element2),
+    );
   }
 
   EquatableType get equatableType {
