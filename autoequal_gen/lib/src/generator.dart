@@ -185,9 +185,12 @@ extension on ClassElement {
 
   bool get equatableIsSuper {
     for (final superType in allSupertypes) {
-      final element = superType.element;
+      // element2 allows for `InterfaceType` override,
+      // and is backwards compatible with `element`
+      // ignore: deprecated_member_use
+      final element = superType.element2;
 
-      final name = superType.element.name;
+      final name = element.name;
       if (name == 'Equatable' ||
           name == 'EquatableMixin' ||
           name.endsWith('AutoequalMixin') ||
@@ -205,7 +208,10 @@ extension on ClassElement {
 
   bool get superHasProps {
     for (final superType in allSupertypes) {
-      final element = superType.element;
+      // element2 allows for `InterfaceType` override,
+      // and is backwards compatible with `element`
+      // ignore: deprecated_member_use
+      final element = superType.element2;
 
       if (element.getGetter('props') != null) {
         return true;
