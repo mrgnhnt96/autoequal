@@ -1,6 +1,6 @@
-part of generator;
+part of '../generator.dart';
 
-class _AutoequalExtensionTemplate {
+final class _AutoequalExtensionTemplate {
   static String extensionName(String name) => '_\$${name}Autoequal';
 
   static String generate(
@@ -8,11 +8,12 @@ class _AutoequalExtensionTemplate {
     Iterable<String> props, {
     bool includeDeprecated = true,
   }) {
-    final extensionName = _AutoequalExtensionTemplate.extensionName(className);
+    final String extensionName =
+        _AutoequalExtensionTemplate.extensionName(className);
 
-    const deprecatedMessage = r"@Deprecated(r'Use _$props instead')";
+    const String deprecatedMessage = r"@Deprecated(r'Use _$props instead')";
 
-    const deprecated = '''
+    const String deprecated = '''
         $deprecatedMessage
         List<Object?> get _autoequalProps => _\$props;''';
 

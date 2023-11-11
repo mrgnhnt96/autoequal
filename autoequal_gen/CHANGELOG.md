@@ -1,5 +1,12 @@
 ## Changelog
 
+### 0.6.0
+
+- Require Dart 3.0 or later
+- Add final modifier to all classes
+- Migrate from pedantic to lints
+- Update dependencies
+
 #### 0.5.1
 
 - Fixed use of `autoequal_gen` with `analyzer: 5.0.0`

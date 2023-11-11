@@ -3,39 +3,39 @@ library generator;
 import 'dart:async';
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:autoequal/src/src.dart';
+import 'package:autoequal/autoequal.dart';
 import 'package:autoequal_gen/autoequal_gen.dart';
-import 'package:build/src/builder/build_step.dart';
+import 'package:build/build.dart';
 import 'package:equatable/equatable.dart';
 import 'package:source_gen/source_gen.dart';
 
 part 'template/extension.dart';
 part 'template/mixin.dart';
 
-const _equatable = TypeChecker.fromRuntime(Equatable);
-const _equatableMixin = TypeChecker.fromRuntime(EquatableMixin);
-const _ignore = TypeChecker.fromRuntime(IgnoreAutoequal);
-const _include = TypeChecker.fromRuntime(IncludeAutoequal);
+const TypeChecker _equatable = TypeChecker.fromRuntime(Equatable);
+const TypeChecker _equatableMixin = TypeChecker.fromRuntime(EquatableMixin);
+const TypeChecker _ignore = TypeChecker.fromRuntime(IgnoreAutoequal);
+const TypeChecker _include = TypeChecker.fromRuntime(IncludeAutoequal);
 
 /// For class marked with @Autoequal annotation will be generated properties list List<Object>
 /// to use it as value for List<Object> props of Equatable object.
 /// If mixin=true so a mixin with overrides 'List<Object> get props' will be additionally generated.
-class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
+final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   @override
   FutureOr<String> generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
-    final classElement = _validateElement(element);
+    final ClassElement classElement = _validateElement(element);
 
-    final generated = <String>[];
+    final List<String> generated = [];
 
-    final isMixin = annotation.read('mixin').boolValue;
+    final bool isMixin = annotation.read('mixin').boolValue;
 
-    final mixin = _generateMixin(classElement, isMixin: isMixin);
+    final String? mixin = _generateMixin(classElement, isMixin: isMixin);
     if (mixin != null) {
       generated.add(mixin);
     }
 
-    final extension = _generateExtension(
+    final String extension = _generateExtension(
       classElement,
       includeDeprecated: mixin == null,
       isMixinAnnotation: isMixin,

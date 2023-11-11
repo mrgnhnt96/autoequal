@@ -1,6 +1,6 @@
-part of generator;
+part of '../generator.dart';
 
-class _AutoequalMixinTemplate {
+final class _AutoequalMixinTemplate {
   static String mixinName(String className) => '_\$${className}AutoequalMixin';
 
   static String generate(
@@ -8,14 +8,15 @@ class _AutoequalMixinTemplate {
     String onTypeName, {
     required bool generateSuperProps,
   }) {
-    final mixinName = _AutoequalMixinTemplate.mixinName(className);
-    final extensionName = _AutoequalExtensionTemplate.extensionName(className);
+    final String mixinName = _AutoequalMixinTemplate.mixinName(className);
+    final String extensionName =
+        _AutoequalExtensionTemplate.extensionName(className);
 
-    final superProps = generateSuperProps ? '...super.props,' : '';
+    final String superProps = generateSuperProps ? '...super.props,' : '';
 
-    final open = generateSuperProps ? '[' : '';
-    final close = generateSuperProps ? ']' : '';
-    final spreadOp = generateSuperProps ? '...' : '';
+    final String open = generateSuperProps ? '[' : '';
+    final String close = generateSuperProps ? ']' : '';
+    final String spreadOp = generateSuperProps ? '...' : '';
 
     return '''
       mixin $mixinName on $onTypeName {
