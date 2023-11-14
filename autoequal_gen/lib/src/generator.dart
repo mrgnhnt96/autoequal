@@ -47,8 +47,6 @@ final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
     final DartEmitter emitter = DartEmitter(useNullSafetySyntax: true);
 
     return DartFormatter().format([
-      '// coverage:ignore-file',
-      '// ignore_for_file: type=lint',
       for (final Spec spec in generated) spec.accept(emitter).toString()
     ].join('\n'));
   }
