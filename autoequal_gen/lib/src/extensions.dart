@@ -24,10 +24,7 @@ extension on ClassElement {
 
   bool get equatableIsSuper {
     for (final InterfaceType superType in allSupertypes) {
-      // element2 allows for `InterfaceType` override,
-      // and is backwards compatible with `element`
-      // ignore: deprecated_member_use
-      final element = superType.element2;
+      final InterfaceElement element = superType.element;
 
       final String name = element.name;
       if (name == 'Equatable' ||
@@ -47,10 +44,7 @@ extension on ClassElement {
 
   bool get superHasProps {
     for (final InterfaceType superType in allSupertypes) {
-      // element2 allows for `InterfaceType` override,
-      // and is backwards compatible with `element`
-      // ignore: deprecated_member_use
-      final InterfaceElement element = superType.element2;
+      final InterfaceElement element = superType.element;
 
       if (element.getGetter('props') != null) {
         return true;
@@ -61,7 +55,7 @@ extension on ClassElement {
   }
 }
 
-extension _ElementX on Element {
+extension on Element {
   bool get isWithEquatableMixin {
     final Element element = this;
 
@@ -74,10 +68,7 @@ extension _ElementX on Element {
     }
 
     return element.mixins.any(
-      // element2 allows for `InterfaceType` override,
-      // and is backwards compatible with `element`
-      // ignore: deprecated_member_use
-      (InterfaceType type) => _equatableMixin.isExactly(type.element2),
+      (InterfaceType type) => _equatableMixin.isExactly(type.element),
     );
   }
 
