@@ -1,36 +1,18 @@
+# AUTOEQUAL
+
 [![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
 
 Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object?> _$props` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 
 ## Usage
 
-#### In your `pubspec.yaml` file:
-- Add to `dependencies` section `autoequal: ^0.5.1`
-- Add to `dev_dependencies` section `autoequal_gen: ^0.5.1`
-- Add to `dev_dependencies` section `build_runner: ^2.2.0`
-- Set `environment` to at least Dart 2.17.0 version like so: `">=2.17.0 <3.0.0"`
+### In your `pubspec.yaml` file
 
-Your `pubspec.yaml` should look like so:
+- Add `autoequal` to your `dependencies`
+- Add `autoequal_gen` to your `dev_dependencies`
+- Add `build_runner` to your `dev_dependencies`
 
-```yaml
-name: project_name
-description: project description
-version: 1.0.0
-
-environment:
-  sdk: ">=2.17.0 <3.0.0"
-
-dependencies:
-  #...
-  autoequal: ^0.5.1
-  
-dev_dependencies:
-  #...
-  build_runner: ^2.2.0
-  autoequal_gen: ^0.5.1
-```
-
-#### Annotate your class with `@autoequal` annotation:
+### Annotate your class with `@autoequal` annotation
 
 ```dart
 import 'package:autoequal/autoequal.dart';
@@ -51,13 +33,13 @@ class SomeClass extends Equatable {
 
 Make sure that you set the part file as in the example above `part 'your_file_name.g.dart';`.
 
-#### Launch code generation:
+#### Launch code generation
 
-```
+```bash
 flutter pub run build_runner build
 ```
 
-#### The extension will be generated:
+#### The extension will be generated
 
 ```dart
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -76,26 +58,7 @@ extension _$SomeClassAutoequal on SomeClass {
 
 ---
 
-# Additional features
-
-## Build.yaml options
-
-By default, the builder will ignore all getter methods in `props`, but you can change this behavior by adding the following to your `build.yaml` file:
-
-```yaml
-targets:
-  $default:
-    builders:
-
-      autoequal_gen:
-        enabled: true
-        options:
-          include_getters: true # default is false
-```
-
----
-
-## Autoequal mixin
+### Alternative usage
 
 The `@autoequal` is smart enough to handle the `EquatableMixin` mixin automatically.
 
@@ -104,9 +67,9 @@ Instead of extending `Equatable`, you can add it as a mixin, along with the gene
 ```dart
 @autoequal
 class SomeClass with EquatableMixin, _$SomeClassAutoequalMixin {
-  final String id;
+  const SomeClass({this.id});
 
-  SomeClass({this.id});
+  final String id;
 }
 ```
 
@@ -115,9 +78,9 @@ If you'd like to not write the `List<Object?> get props` getter, you can use the
 ```dart
 @autoequalMixin
 class SomeClass extends Equatable with _$SomeClassAutoequalMixin {
-  final String id;
+  const SomeClass({this.id});
 
-  SomeClass({this.id});
+  final String id;
 }
 ```
 
@@ -131,7 +94,6 @@ mixin _$SomeClassAutoequalMixin on Equatable {
 ```
 
 ---
-
 
 ## Inheritance
 
@@ -206,3 +168,20 @@ You can include fields or getter methods in `props` by annotating them with `@in
 @includeAutoequal
 String get id => _id;
 ```
+
+## Build.yaml options
+
+By default, the builder will ignore all getter methods in `props`, but you can change this behavior by adding the following to your `build.yaml` file:
+
+```yaml
+targets:
+  $default:
+    builders:
+
+      autoequal_gen:
+        enabled: true
+        options:
+          include_getters: true # default is false
+```
+
+---
