@@ -1,4 +1,4 @@
-class Settings {
+final class Settings {
   const Settings({
     required this.includeGetters,
   });
