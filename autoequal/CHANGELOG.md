@@ -1,9 +1,15 @@
+# 0.7.1
+
+- Update README
+
 # 0.7.0
 
 - Require Dart 3.0 or later
 - Add final modifier to annotation classes
 - Migrate from pedantic to lints
 - Update dependencies
+
+Thank you [techouse](https://github.com/techouse) for your contributions!!
 
 # 0.6.0
 
