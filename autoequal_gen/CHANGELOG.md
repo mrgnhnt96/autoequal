@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.7.0
+
+- Refactor autoequal_gen to use code_builder instead of raw Strings
+
 ### 0.6.0
 
 - Require Dart 3.0 or later

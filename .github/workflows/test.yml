@@ -1,0 +1,50 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [ autoequal, autoequal_gen, test_project ]
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - id: setup_dart
+        name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - id: install
+        name: Install dependencies
+        working-directory: ${{ matrix.package }}
+        run: dart pub get
+      - name: Run the build system for Dart code generation and modular compilation
+        if: matrix.package == 'test_project'
+        working-directory: ${{ matrix.package }}
+        run: dart run build_runner build --delete-conflicting-outputs
+      - name: Check the formatting of one or more Dart files
+        working-directory: ${{ matrix.package }}
+        run: dart format lib test --output=none --set-exit-if-changed .
+      - name: Analyze the project's Dart code
+        working-directory: ${{ matrix.package }}
+        run: dart analyze lib test --fatal-infos
+      - name: Run tests
+        if: matrix.package == 'test_project'
+        working-directory: ${{ matrix.package }}
+        run: dart test
