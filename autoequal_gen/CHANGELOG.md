@@ -1,4 +1,4 @@
-# 0.7.0
+# 0.7.1
 
 - Refactor autoequal_gen to use code_builder instead of raw Strings
 
@@ -8,6 +8,8 @@
 - Add final modifier to all classes
 - Migrate from pedantic to lints
 - Update dependencies
+
+Thank you [techouse](https://github.com/techouse) for your contributions!!
 
 # 0.5.1
 
