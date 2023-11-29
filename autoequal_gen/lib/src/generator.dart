@@ -259,6 +259,7 @@ final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   }
 }
 
+/// The type of [Equatable] inheritance.
 enum EquatableType {
   class_,
   mixin,

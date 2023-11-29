@@ -1,5 +1,7 @@
 part of 'generator.dart';
 
+/// The extension for [EquatableType] to check annotated elements'
+/// autoequal types.
 extension on EquatableType {
   bool get isClass => this == EquatableType.class_;
 
@@ -19,6 +21,8 @@ extension on EquatableType {
   }
 }
 
+/// The extension for [ClassElement] to check if the annotated
+/// elements' inheritances are [Equatable].
 extension on ClassElement {
   bool get usesEquatable => !equatableType.isNone;
 

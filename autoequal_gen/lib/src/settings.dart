@@ -1,3 +1,4 @@
+/// Settings for the generator.
 final class Settings {
   const Settings({
     required this.includeGetters,
