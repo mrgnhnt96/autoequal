@@ -1,6 +1,7 @@
 name: Test
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -20,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [ autoequal, autoequal_gen, test_project ]
+        package: [autoequal, autoequal_gen, test_project]
     steps:
       - id: checkout
         name: Checkout repository
