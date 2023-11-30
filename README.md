@@ -1,6 +1,7 @@
 # AUTOEQUAL
 
 [![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
+[![Test](https://github.com/mrgnhnt96/autoequal/actions/workflows/test.yml/badge.svg)](https://github.com/mrgnhnt96/autoequal/actions/workflows/test.yml)
 
 Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object?> _$props` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 
