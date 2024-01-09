@@ -39,7 +39,6 @@ final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
       if (mixin != null) mixin,
       _generateExtension(
         classElement,
-        includeDeprecated: mixin == null,
         isMixinAnnotation: isMixin,
       )
     ];
@@ -54,7 +53,6 @@ final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
   static Extension _generateExtension(
     ClassElement classElement, {
     required bool isMixinAnnotation,
-    required bool includeDeprecated,
   }) {
     final String name = classElement.name;
     final PropertyAccessorElement? props = classElement.getGetter('props');
@@ -71,60 +69,33 @@ final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
         ..on = TypeReference(
           (TypeReferenceBuilder typeBuilder) => typeBuilder.symbol = name,
         )
-        ..methods.addAll(
-          [
-            Method(
-              (MethodBuilder methodBuilder) => methodBuilder
-                ..annotations.addAll([
-                  if (includeDeprecated)
-                    refer('Deprecated').call(
-                      [literalString('Use _\$props instead', raw: true)],
+        ..methods.add(
+          Method(
+            (MethodBuilder methodBuilder) => methodBuilder
+              ..returns = TypeReference(
+                (TypeReferenceBuilder listBuilder) => listBuilder
+                  ..symbol = 'List'
+                  ..types.add(
+                    TypeReference(
+                      (TypeReferenceBuilder listTypeBuilder) => listTypeBuilder
+                        ..symbol = 'Object'
+                        ..isNullable = true,
                     ),
-                ])
-                ..returns = TypeReference(
-                  (TypeReferenceBuilder listBuilder) => listBuilder
-                    ..symbol = 'List'
-                    ..types.add(
-                      TypeReference(
-                        (TypeReferenceBuilder listTypeBuilder) =>
-                            listTypeBuilder
-                              ..symbol = 'Object'
-                              ..isNullable = true,
+                  ),
+              )
+              ..type = MethodType.getter
+              ..name = '_\$props'
+              ..body = literalList(
+                classElement.fields
+                    .where((FieldElement field) => _includeField(field))
+                    .map(
+                      (FieldElement field) => TypeReference(
+                        (TypeReferenceBuilder typeBuilder) =>
+                            typeBuilder.symbol = field.name,
                       ),
                     ),
-                )
-                ..type = MethodType.getter
-                ..name = '_autoequalProps'
-                ..body = refer('_\$props').code,
-            ),
-            Method(
-              (MethodBuilder methodBuilder) => methodBuilder
-                ..returns = TypeReference(
-                  (TypeReferenceBuilder listBuilder) => listBuilder
-                    ..symbol = 'List'
-                    ..types.add(
-                      TypeReference(
-                        (TypeReferenceBuilder listTypeBuilder) =>
-                            listTypeBuilder
-                              ..symbol = 'Object'
-                              ..isNullable = true,
-                      ),
-                    ),
-                )
-                ..type = MethodType.getter
-                ..name = '_\$props'
-                ..body = literalList(
-                  classElement.fields
-                      .where((FieldElement field) => _includeField(field))
-                      .map(
-                        (FieldElement field) => TypeReference(
-                          (TypeReferenceBuilder typeBuilder) =>
-                              typeBuilder.symbol = field.name,
-                        ),
-                      ),
-                ).code,
-            ),
-          ],
+              ).code,
+          ),
         ),
     );
   }
