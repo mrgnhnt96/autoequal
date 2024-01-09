@@ -1,3 +1,7 @@
+# 0.8.0 | 1.9.2023
+
+- Remove deprecated `_autoequalProps`
+
 # 0.7.1
 
 - Refactor autoequal_gen to use code_builder instead of raw Strings

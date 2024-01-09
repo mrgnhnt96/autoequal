@@ -2,8 +2,9 @@ name: autoequal_gen
 description: |
   Code generator which can simplify work with 'equatable'.
   It will generate 'List<Object?> props' private extensions for all annotated classes.
-version: 0.7.1
-homepage: https://github.com/sunnydaydev/autoequal
+version: 0.8.0
+homepage: https://github.com/mrgnhnt96/autoequal
+issue_tracker: https://github.com/mrgnhnt96/autoequal/issues
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
