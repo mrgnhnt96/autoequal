@@ -1,3 +1,7 @@
+# 0.8.0 | 1.9.2023
+
+- Remove deprecated `_autoequalProps`
+
 # 0.7.1
 
 - Update README
