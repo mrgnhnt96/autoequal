@@ -77,3 +77,4 @@ build/
 
 pubspec.lock
 *.g.dart
+.lh
