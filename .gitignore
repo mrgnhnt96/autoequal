@@ -77,6 +77,4 @@ build/
 
 pubspec.lock
 *.g.dart
-!autoequal_gen/**/*.g.dart
 .lh
-test_project/**/gen/**

@@ -5,7 +5,9 @@ import 'package:meta/meta_meta.dart';
 /// If mixin=true so a mixin with overrides 'List<Object> get props' will be additionally generated.
 @Target({TargetKind.classType})
 final class Autoequal {
-  const Autoequal();
+  final bool mixin;
+
+  const Autoequal({this.mixin = false});
 }
 
 /// Field marked with this annotation will be ignored

@@ -2,6 +2,8 @@ import 'package:autoequal/src/src.dart';
 
 const Autoequal autoequal = Autoequal();
 
-const IgnoreAutoequal ignore = IgnoreAutoequal();
+const Autoequal autoequalMixin = Autoequal(mixin: true);
 
-const IncludeAutoequal include = IncludeAutoequal();
+const IgnoreAutoequal ignoreAutoequal = IgnoreAutoequal();
+
+const IncludeAutoequal includeAutoequal = IncludeAutoequal();

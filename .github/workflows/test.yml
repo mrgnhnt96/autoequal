@@ -26,56 +26,38 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@v4
-
       - id: setup_dart
         name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
-
       - id: install
         name: Install dependencies
         working-directory: ${{ matrix.package }}
         run: dart pub get
-
+      - name: Run the build system for Dart code generation and modular compilation
+        if: matrix.package == 'test_project'
+        working-directory: ${{ matrix.package }}
+        run: dart run build_runner build --delete-conflicting-outputs
       - name: Check the formatting of one or more Dart files
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base gen)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
-
-          echo "Formating..."
-          echo "Main dirs: $MAIN_DIRS"
-          echo "Test dirs: $TEST_DIRS"
-
-          DIRS="$MAIN_DIRS $TEST_DIRS"
-          if [ -z "$DIRS" ]; then
-            echo "No files to format"
-            exit 0
+          if [ -d "test" ]; then
+            dart format lib test --output=none --set-exit-if-changed .
+          else
+            dart format lib --output=none --set-exit-if-changed .
           fi
-
-          dart format --set-exit-if-changed $DIRS
-
       - name: Analyze the project's Dart code
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base gen)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
-
-          echo "Analyzing..."
-          echo "Main dirs: $MAIN_DIRS"
-          echo "Test dirs: $TEST_DIRS"
-          DIRS="$MAIN_DIRS $TEST_DIRS"
-          if [ -z "$DIRS" ]; then
-            echo "No files to format"
-            exit 0
+          if [ -d "test" ]; then
+            dart analyze lib test --fatal-infos
+          else
+            dart analyze lib --fatal-infos
           fi
-
-          dart analyze --fatal-infos --fatal-warnings $DIRS
-
       - name: Run tests
         if: matrix.package == 'test_project'
         working-directory: ${{ matrix.package }}
-        run: dart run derry test
+        run: dart test
