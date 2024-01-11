@@ -23,25 +23,6 @@ Mixin writeMixin(EquatableElement element) {
 }
 
 Code _writeProps(EquatableElement element) {
-  if (element.generateSuperProps) {
-    return literalList(
-      [
-        refer('super').property('props').spread,
-        refer('_\$${element.sanitizedName}Autoequal')
-            .type
-            .newInstance(
-              [
-                refer('this').asA(
-                  refer(element.name),
-                ),
-              ],
-            )
-            .property('_\$props')
-            .spread,
-      ],
-    ).code;
-  }
-
   return refer('_\$${element.name}Autoequal')
       .type
       .newInstance(

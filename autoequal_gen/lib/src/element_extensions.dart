@@ -6,35 +6,45 @@ import 'package:autoequal_gen/src/enums/equatable_type.dart';
 /// The extension for [ClassElement] to check if the annotated
 /// elements' inheritances are [Equatable].
 extension ClassElementX on ClassElement {
-  bool get usesEquatable => !equatableType.isNone;
+  bool get usesEquatable =>
+      equatableChecker.isSuperOf(this) ||
+      usesEquatableViaMixin ||
+      equatableIsSuper;
 
-  bool get equatableIsSuper {
+  bool get equatableIsSuper => equatableChecker.isSuperOf(this);
+
+  bool get superHasProps {
+    final ignore = {
+      'Object',
+      'Equatable',
+      'EquatableMixin',
+    };
+
     for (final InterfaceType superType in allSupertypes) {
-      final InterfaceElement element = superType.element;
-
-      final String name = element.name;
-      if (name == 'Equatable' ||
-          name == 'EquatableMixin' ||
-          name.endsWith('AutoequalMixin') ||
-          name == 'Object') {
+      final element = superType.element;
+      if (ignore.contains(element.name)) {
         continue;
       }
 
-      if (!element.equatableType.isNone) {
+      if (element is! ClassElement) {
+        continue;
+      }
+
+      if (element.usesEquatable) {
         return true;
       }
-    }
 
-    return false;
-  }
+      // final propsField = element.getGetter('props');
 
-  bool get superHasProps {
-    for (final InterfaceType superType in allSupertypes) {
-      final InterfaceElement element = superType.element;
+      // if (propsField != null) {
+      //   return true;
+      // }
 
-      if (element.getGetter('props') != null) {
-        return true;
-      }
+      // // check the source if the getter is not found
+      // final source = element.source.contents.data;
+      // if (source.contains('List<Object?> get props ')) {
+      //   return true;
+      // }
     }
 
     return false;
@@ -42,7 +52,35 @@ extension ClassElementX on ClassElement {
 }
 
 extension ElementX on Element {
-  bool get isWithEquatableMixin {
+  bool get usesEquatableViaMixin {
+    final Element element = this;
+
+    if (element is! ClassElement) {
+      return false;
+    }
+
+    final mixins = {...element.mixins};
+
+    var theSuper = element.supertype;
+    do {
+      if (theSuper == null) {
+        break;
+      }
+
+      mixins.addAll(theSuper.mixins);
+      theSuper = theSuper.superclass;
+    } while (theSuper != null);
+
+    if (mixins.isEmpty) {
+      return false;
+    }
+
+    return mixins.any(
+      (InterfaceType type) => equatableMixinChecker.isExactly(type.element),
+    );
+  }
+
+  bool get hasDirectEquatableMixin {
     final Element element = this;
 
     if (element is! ClassElement) {
@@ -65,7 +103,7 @@ extension ElementX on Element {
 
     if (equatableChecker.isSuperOf(this)) {
       return EquatableType.class_;
-    } else if (isWithEquatableMixin) {
+    } else if (hasDirectEquatableMixin) {
       return EquatableType.mixin;
     } else {
       return EquatableType.none;

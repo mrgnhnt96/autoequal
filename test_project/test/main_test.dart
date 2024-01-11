@@ -34,6 +34,10 @@ void main() {
       'inherited.dart',
       settings: Settings.defaults(),
     ),
+    GeneratorInput.file(
+      'mixin_inherited.dart',
+      settings: Settings.defaults(),
+    ),
   ];
 
   for (final input in inputs) {

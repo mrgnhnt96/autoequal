@@ -23,11 +23,14 @@ Extension writeExtension(EquatableElement element) {
             ..returns = refer('List<Object?>')
             ..type = MethodType.getter
             ..name = '_\$props'
-            ..body = literalList(
-              element.props.map(
+            ..body = literalList([
+              ...element.props.map(
                 (f) => refer(f.name),
               ),
-            ).code,
+              if (element.generateSuperProps)
+                refer('(this as ${element.element.supertype!.element.name}).props')
+                    .spread,
+            ]).code,
         ),
       ),
   );

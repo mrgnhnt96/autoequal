@@ -25,5 +25,6 @@ class EquatableElement {
   bool get shouldGenerateMixin => type.isMixin || hasMixinAnnotation;
 
   bool get generateSuperProps =>
-      element.equatableIsSuper && element.superHasProps;
+      (element.equatableIsSuper || element.usesEquatableViaMixin) &&
+      element.superHasProps;
 }
