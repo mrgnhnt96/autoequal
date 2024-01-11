@@ -42,27 +42,38 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base gen)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
 
           echo "Formating..."
           echo "Main dirs: $MAIN_DIRS"
           echo "Test dirs: $TEST_DIRS"
 
-          dart format --set-exit-if-changed $MAIN_DIRS $TEST_DIRS
+          DIRS="$MAIN_DIRS $TEST_DIRS"
+          if [ -z "$DIRS" ]; then
+            echo "No files to format"
+            exit 0
+          fi
+
+          dart format --set-exit-if-changed $DIRS
 
       - name: Analyze the project's Dart code
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base gen)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
 
           echo "Analyzing..."
           echo "Main dirs: $MAIN_DIRS"
           echo "Test dirs: $TEST_DIRS"
+          DIRS="$MAIN_DIRS $TEST_DIRS"
+          if [ -z "$DIRS" ]; then
+            echo "No files to format"
+            exit 0
+          fi
 
-          dart analyze --fatal-infos --fatal-warnings $MAIN_DIRS $TEST_DIRS
+          dart analyze --fatal-infos --fatal-warnings $DIRS
 
       - name: Run tests
         if: matrix.package == 'test_project'

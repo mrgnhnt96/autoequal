@@ -8,6 +8,12 @@ if [ -z "$LOOK_IN" ]; then
     LOOK_IN="."
 fi
 
+# check that LOOK_IN exists, if not exit
+if [ ! -d "$LOOK_IN" ]; then
+    exit 0
+fi
+
+
 FOUND=$(find "$LOOK_IN" -type d -maxdepth 1)
 
 dirs=""
