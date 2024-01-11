@@ -4,15 +4,19 @@ import 'package:autoequal_gen/src/enums/equatable_type.dart';
 import 'package:change_case/change_case.dart';
 
 class EquatableElement {
-  const EquatableElement({
+  EquatableElement({
     required this.element,
-    required this.hasMixinAnnotation,
+    required this.hasAnnotation,
     required this.props,
-  });
+    required bool hasPropsField,
+    required this.isAutoInclude,
+  }) : shouldCreateExtension = isAutoInclude || hasPropsField || hasAnnotation;
 
   final ClassElement element;
-  final bool hasMixinAnnotation;
+  final bool hasAnnotation;
   final List<FieldElement> props;
+  final bool shouldCreateExtension;
+  final bool isAutoInclude;
 
   String get name => element.name;
 
@@ -21,10 +25,4 @@ class EquatableElement {
   EquatableType get type => element.equatableType;
 
   bool get hasPropsField => element.getField('props') != null;
-
-  bool get shouldGenerateMixin => type.isMixin || hasMixinAnnotation;
-
-  bool get generateSuperProps =>
-      (element.equatableIsSuper || element.usesEquatableViaMixin) &&
-      element.superHasProps;
 }

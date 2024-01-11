@@ -42,29 +42,47 @@ class ClassVisitor extends RecursiveElementVisitor<void> {
       }
     }
 
-    final isMixin = _isMixin(element);
+    final annotation = autoequalChecker.firstAnnotationOfExact(element);
+
+    final props = <FieldElement>[];
+
+    ClassElement? clazz = element;
+    var isSuper = false;
+
+    do {
+      if (clazz == null) {
+        break;
+      }
+
+      props.addAll(clazz.fields
+          .where((e) => _includeField(e, settings, isSuper: isSuper)));
+      clazz = clazz.supertype?.element as ClassElement?;
+      isSuper = true;
+    } while (clazz != null);
 
     final equatableElement = EquatableElement(
       element: element,
-      hasMixinAnnotation: isMixin,
-      props: element.fields.where((e) => _includeField(e, settings)).toList(),
+      hasAnnotation: annotation != null,
+      props: props,
+      hasPropsField: element.getField('props') != null,
+      isAutoInclude: settings.autoInclude,
     );
 
-    nodes.add(equatableElement);
+    if (equatableElement.shouldCreateExtension) {
+      nodes.add(equatableElement);
+    }
   }
 }
 
-bool _isMixin(ClassElement node) {
-  final annotation = autoequalChecker.firstAnnotationOfExact(node);
-
-  if (annotation == null) {
+bool _includeField(
+  FieldElement element,
+  Settings settings, {
+  bool isSuper = false,
+}) {
+  if (element.isPrivate && isSuper) {
     return false;
   }
 
-  return annotation.getField('mixin')?.toBoolValue() ?? false;
-}
-
-bool _includeField(FieldElement element, Settings settings) {
   if (element.isStatic) {
     return false;
   }
