@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'inherited.g.dart';
 
 @autoequal
-class Base extends Equatable {
+class Base {REPLACE} {
   const Base(this.one);
 
   final String one;

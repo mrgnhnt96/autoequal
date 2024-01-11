@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'private.g.dart';
 
 @autoequal
-class Private extends Equatable {
+class Private {REPLACE} {
   const Private(
     this._one, {
     required String two,

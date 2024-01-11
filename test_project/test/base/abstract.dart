@@ -1,4 +1,4 @@
-import 'package:example/extends/abstract.dart';
+import 'package:example/gen/{REPLACE}/abstract.dart';
 import 'package:test/test.dart';
 
 class _Impl extends Abstract {

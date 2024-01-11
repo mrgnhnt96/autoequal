@@ -1,4 +1,4 @@
-import 'package:example/extends/setter.dart';
+import 'package:example/gen/{REPLACE}/setter.dart';
 import 'package:test/test.dart';
 
 void main() {

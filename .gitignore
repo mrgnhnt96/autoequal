@@ -78,3 +78,4 @@ build/
 pubspec.lock
 *.g.dart
 .lh
+test_project/**/gen/**

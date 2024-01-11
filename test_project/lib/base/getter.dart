@@ -1,13 +1,12 @@
 import 'package:autoequal/autoequal.dart';
 import 'package:equatable/equatable.dart';
 
-part 'include_getter.g.dart';
+part 'getter.g.dart';
 
 @autoequal
-class IncludeGetter extends Equatable {
-  const IncludeGetter();
+class Getter {REPLACE} {
+  const Getter();
 
-  @include
   String get one => 'one';
 
   @override

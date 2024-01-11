@@ -1,4 +1,4 @@
-import 'package:example/extends/basic.dart';
+import 'package:example/gen/{REPLACE}/basic.dart';
 import 'package:test/test.dart';
 
 void main() {

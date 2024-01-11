@@ -1,13 +1,13 @@
 import 'package:autoequal/autoequal.dart';
 import 'package:equatable/equatable.dart';
 
-part 'getter.g.dart';
+part 'setter.g.dart';
 
 @autoequal
-class Getter extends Equatable {
-  const Getter();
+class Setter {REPLACE} {
+  const Setter();
 
-  String get one => 'one';
+  set one(String newValue) => print(newValue);
 
   @override
   List<Object?> get props => _$props;

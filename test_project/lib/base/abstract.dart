@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'abstract.g.dart';
 
 @autoequal
-abstract class Abstract extends Equatable {
+abstract class Abstract {REPLACE} {
   const Abstract(this.one);
 
   final String one;

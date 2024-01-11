@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'basic.g.dart';
 
 @autoequal
-class Basic extends Equatable {
+class Basic {REPLACE} {
   const Basic(
     this.one, {
     required this.two,

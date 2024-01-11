@@ -1,4 +1,4 @@
-import 'package:example/extends/inherited.dart';
+import 'package:example/gen/{REPLACE}/inherited.dart';
 import 'package:test/test.dart';
 
 void main() {

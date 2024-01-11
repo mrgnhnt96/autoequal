@@ -3,16 +3,22 @@ import 'package:equatable/equatable.dart';
 
 part 'inherited.g.dart';
 
-@autoequalMixin
-class Base extends Equatable with _$BaseAutoequalMixin {
+@autoequal
+class Base extends Equatable {
   const Base(this.one);
 
   final String one;
+
+  @override
+  List<Object?> get props => _$props;
 }
 
-@autoequalMixin
-class Inherited extends Base with _$InheritedAutoequalMixin {
+@autoequal
+class Inherited extends Base {
   const Inherited(super.one, this.two);
 
   final String two;
+
+  @override
+  List<Object?> get props => _$props;
 }

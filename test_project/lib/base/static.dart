@@ -1,20 +1,21 @@
 import 'package:autoequal/autoequal.dart';
 import 'package:equatable/equatable.dart';
 
-part 'ignore.g.dart';
+part 'static.g.dart';
 
 @autoequal
-class Ignore extends Equatable {
-  const Ignore(
+class Static {REPLACE} {
+  const Static(
     this.one, {
     required this.two,
     this.three,
   });
 
-  @ignore
   final String one;
   final String two;
   final String? three;
+
+  static const String staticField = 'staticField';
 
   @override
   List<Object?> get props => _$props;
