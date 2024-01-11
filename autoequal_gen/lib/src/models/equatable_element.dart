@@ -10,7 +10,8 @@ class EquatableElement {
     required this.props,
     required bool hasPropsField,
     required this.isAutoInclude,
-  }) : shouldCreateExtension = isAutoInclude || hasPropsField || hasAnnotation;
+  }) : shouldCreateExtension =
+            (isAutoInclude || hasAnnotation) && hasPropsField;
 
   final ClassElement element;
   final bool hasAnnotation;
