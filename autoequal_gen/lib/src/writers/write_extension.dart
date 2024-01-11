@@ -28,7 +28,7 @@ Extension writeExtension(EquatableElement element) {
                 (f) => refer(f.name),
               ),
               if (element.generateSuperProps)
-                refer('(this as ${element.element.supertype!.element.name}).props')
+                refer('(this as ${element.element.supertype!.element.name})._\$props')
                     .spread,
             ]).code,
         ),

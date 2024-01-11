@@ -7,7 +7,7 @@ part 'include_getter.g.dart';
 class IncludeGetter extends Equatable {
   const IncludeGetter();
 
-  @includeAutoequal
+  @include
   String get one => 'one';
 
   @override

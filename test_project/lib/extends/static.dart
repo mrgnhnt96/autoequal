@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 part 'static.g.dart';
 
-@autoequalMixin
-class Static extends Equatable with _$StaticAutoequalMixin {
+@autoequal
+class Static extends Equatable {
   const Static(
     this.one, {
     required this.two,

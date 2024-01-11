@@ -4,10 +4,13 @@ import 'package:equatable/equatable.dart';
 part 'inherited.g.dart';
 
 @autoequal
-class Base with EquatableMixin, _$BaseAutoequalMixin {
+class Base with EquatableMixin {
   const Base(this.one);
 
   final String one;
+
+  @override
+  List<Object?> get props => _$props;
 }
 
 @autoequal
@@ -17,5 +20,5 @@ class Inherited extends Base {
   final String two;
 
   @override
-  List<Object?> get props => [...super.props, _$props];
+  List<Object?> get props => _$props;
 }
