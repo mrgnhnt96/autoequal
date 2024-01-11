@@ -26,19 +26,18 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@v4
+
       - id: setup_dart
         name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
+
       - id: install
         name: Install dependencies
         working-directory: ${{ matrix.package }}
         run: dart pub get
-      - name: Run the build system for Dart code generation and modular compilation
-        if: matrix.package == 'test_project'
-        working-directory: ${{ matrix.package }}
-        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Check the formatting of one or more Dart files
         working-directory: ${{ matrix.package }}
         run: |
@@ -48,6 +47,7 @@ jobs:
           else
             dart format lib --output=none --set-exit-if-changed .
           fi
+
       - name: Analyze the project's Dart code
         working-directory: ${{ matrix.package }}
         run: |
@@ -57,7 +57,8 @@ jobs:
           else
             dart analyze lib --fatal-infos
           fi
+
       - name: Run tests
         if: matrix.package == 'test_project'
         working-directory: ${{ matrix.package }}
-        run: dart test
+        run: dart run derry test
