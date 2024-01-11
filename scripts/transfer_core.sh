@@ -12,7 +12,6 @@ GEN_DIR=autoequal_gen/lib/gen
 rm -rf "$GEN_DIR"
 mkdir -p "$GEN_DIR"
 
-# copy files to bloc_enhancer_gen/lib/gen
 for file in $CORE_FILES; do
     FILE_NAME=$(basename "$file")
     echo "$FILE_NAME"
