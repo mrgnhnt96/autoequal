@@ -2,8 +2,6 @@ library generator;
 
 import 'dart:async' show FutureOr;
 
-import 'package:analyzer/dart/element/element.dart';
-import 'package:autoequal/autoequal.dart';
 import 'package:autoequal_gen/gen/settings.dart';
 import 'package:autoequal_gen/src/visitors/class_visitor.dart';
 import 'package:autoequal_gen/src/writers/write_file.dart';
@@ -15,20 +13,16 @@ import 'package:source_gen/source_gen.dart';
 /// For class marked with @Autoequal annotation will be generated properties list List<Object>
 /// to use it as value for List<Object> props of Equatable object.
 /// If mixin=true so a mixin with overrides 'List<Object> get props' will be additionally generated.
-final class AutoequalGenerator extends GeneratorForAnnotation<Autoequal> {
+final class AutoequalGenerator extends Generator {
   AutoequalGenerator(this.settings);
 
   final Settings settings;
 
   @override
-  FutureOr<String> generateForAnnotatedElement(
-    Element element,
-    ConstantReader annotation,
-    BuildStep buildStep,
-  ) {
+  FutureOr<String?> generate(LibraryReader library, BuildStep buildStep) {
     final visitor = ClassVisitor(settings);
 
-    element.visitChildren(visitor);
+    library.element.accept(visitor);
 
     final emitter = DartEmitter(useNullSafetySyntax: true);
 

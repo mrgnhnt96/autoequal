@@ -16,13 +16,13 @@ Mixin writeMixin(EquatableElement element) {
             ..returns = refer('List<Object?>')
             ..type = MethodType.getter
             ..name = 'props'
-            ..body = _body(element),
+            ..body = _writeProps(element),
         ),
       ),
   );
 }
 
-Code _body(EquatableElement element) {
+Code _writeProps(EquatableElement element) {
   if (element.generateSuperProps) {
     return literalList(
       [

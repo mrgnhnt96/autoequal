@@ -1,4 +1,3 @@
-
 import 'settings_interface.dart';
 
 part 'settings.g.dart';
@@ -11,7 +10,7 @@ class Settings implements SettingsInterface {
     required this.include,
   });
 
-  Settings.defaults({
+  const Settings.defaults({
     this.includeGetters = false,
     this.autoInclude = false,
     this.exclude = const [],
@@ -23,10 +22,12 @@ class Settings implements SettingsInterface {
 
     final patterns = <String, List<String>>{};
 
-    settings.exclude
-        .forEach((e) => patterns.putIfAbsent(e, () => []).add('exclude'));
-    settings.include
-        .forEach((e) => patterns.putIfAbsent(e, () => []).add('include'));
+    for (var e in settings.exclude) {
+      patterns.putIfAbsent(e, () => []).add('exclude');
+    }
+    for (var e in settings.include) {
+      patterns.putIfAbsent(e, () => []).add('include');
+    }
 
     // make sure that the priorities patterns are valid regex
     for (final MapEntry(key: pattern, value: locations) in patterns.entries) {
@@ -42,6 +43,9 @@ class Settings implements SettingsInterface {
     }
     return settings;
   }
+
+  Map<String, dynamic> toJson() => _$SettingsToJson(this);
+
   @override
   final bool autoInclude;
 

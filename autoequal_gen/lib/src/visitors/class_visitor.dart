@@ -31,7 +31,7 @@ class ClassVisitor extends RecursiveElementVisitor<void> {
         canInclude = true;
       }
 
-      if (canInclude) {
+      if (!canInclude) {
         return;
       }
     } else {
