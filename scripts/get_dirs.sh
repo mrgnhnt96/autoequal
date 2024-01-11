@@ -17,7 +17,9 @@ for dir in $FOUND; do
         # continue to next iterable
         continue
     fi
-    dir="${dir#"${dir%%[!./]*}"}"
+
+    # replace any leading "./" with nothing
+    dir="${dir#"./"}"
 
     if [ -n "$IGNORE" ]; then
         for ignore in $IGNORE; do
