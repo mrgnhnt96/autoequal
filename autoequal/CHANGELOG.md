@@ -1,3 +1,11 @@
+# 0.9.0 | 1.11.2023
+
+- BREAKING: remove support for mixin
+- BREAKING: update annotation constants to omit `Autoequal` suffix
+- feat: support public super class fields within props
+- feat: support auto including class that use Equatable and have a `props` getter
+- refactor: extract files for better maintainability and readability
+
 # 0.8.0 | 1.9.2023
 
 - Remove deprecated `_autoequalProps`

@@ -14,7 +14,7 @@ class Example1Class extends Equatable {
   final String value;
   final String? optional;
 
-  @ignoreAutoequal
+  @ignore
   final String? ignored;
 
   @override
@@ -22,7 +22,7 @@ class Example1Class extends Equatable {
 }
 
 @autoequal
-class Example2Class with EquatableMixin, _$Example2ClassAutoequalMixin {
+class Example2Class with EquatableMixin {
   const Example2Class({
     required this.value,
     this.ignored,
@@ -32,6 +32,9 @@ class Example2Class with EquatableMixin, _$Example2ClassAutoequalMixin {
   final String value;
   final String? optional;
 
-  @ignoreAutoequal
+  @ignore
   final String? ignored;
+
+  @override
+  List<Object?> get props => _$props;
 }

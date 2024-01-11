@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'main.g.dart';
 
 @autoequal
-class ExampleClass extends Equatable with _$ExampleClassAutoequalMixin {
+class ExampleClass extends Equatable {
   const ExampleClass({
     required this.value,
     this.ignored,
@@ -14,6 +14,6 @@ class ExampleClass extends Equatable with _$ExampleClassAutoequalMixin {
   final String? optional;
   final String value;
 
-  @ignoreAutoequal
+  @ignore
   final String? ignored;
 }

@@ -1,7 +1,4 @@
-# AUTOEQUAL
-
 [![Pub Package](https://img.shields.io/pub/v/autoequal.svg)](https://pub.dev/packages/autoequal)
-[![Test](https://github.com/mrgnhnt96/autoequal/actions/workflows/test.yml/badge.svg)](https://github.com/mrgnhnt96/autoequal/actions/workflows/test.yml)
 
 Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object?> _$props` private extensions for classes annotated with [autoequal](https://pub.dev/packages/autoequal).
 
@@ -23,7 +20,7 @@ part 'some_class.g.dart';
 
 @autoequal
 class SomeClass extends Equatable {
-  SomeClass({this.id, this.random});
+  const SomeClass({this.id, this.random});
 
   final String id;
 
@@ -57,116 +54,93 @@ extension _$SomeClassAutoequal on SomeClass {
 
 ```
 
----
+### Auto Include with Annotating
 
-### Alternative usage
+The `@autoequal` is smart enough to generate the `props` getter for classes that use `Equatable` without having to annotate the class with `@autoequal`.
 
-The `@autoequal` is smart enough to handle the `EquatableMixin` mixin automatically.
+To do this, update your `build.yaml` file to:
 
-Instead of extending `Equatable`, you can add it as a mixin, along with the generated autoequal mixin
+Include the `auto_include: true` option
 
-```dart
-@autoequal
-class SomeClass with EquatableMixin, _$SomeClassAutoequalMixin {
-  const SomeClass({this.id});
+  ```yaml
+  targets:
+    $default:
+      builders:
+        autoequal_gen:
+          enabled: true
+          options:
+            auto_include: true
+            exclude:
+              - SomeClass # regex pattern (for class names)
+  ```
 
-  final String id;
-}
-```
+Or, add a regex pattern to the `include` option
 
-If you'd like to not write the `List<Object?> get props` getter, you can use the `@autoequalMixin` annotation while extending `Equatable`:
+  ```yaml
+  targets:
+    $default:
+      builders:
+        autoequal_gen:
+          enabled: true
+          options:
+            include:
+              - SomeClass # regex pattern (for class names)
+  ```
 
-```dart
-@autoequalMixin
-class SomeClass extends Equatable with _$SomeClassAutoequalMixin {
-  const SomeClass({this.id});
+Then, use equatable and create the `props` getter as you normally would.
 
-  final String id;
-}
-```
+  ```dart
+  class SomeClass with EquatableMixin { // or `extends Equatable`
+    const SomeClass({this.id});
 
-The two approaches will generate the same code.
+    final String id;
 
-```dart
-mixin _$SomeClassAutoequalMixin on Equatable {
-  @override
-  List<Object?> get props => _$SomeClassAutoequal(this)._$props;
-}
-```
+    @override
+    List<Object?> get props => _$props;
+  }
+  ```
 
----
+  _NOTE:_ If the props getter is not defined, the autoequal will not generate the `_$props` variable.
 
 ## Inheritance
 
-If your class extends another class that uses Equatable, you can use the `@autoequal` annotation to generate the props without having to extend `Equatable` or use the mixin `EquatableMixin`.
+If your class extends another class that uses Equatable, you can use the `@autoequal` annotation and autoequal will do the rest!
 
 ```dart
 @autoequal
-class BaseClass extends Equatable {
-  const BaseClass({this.id});
+class SubClass extends BaseClass { // BaseClass extends Equatable
+  const SubClass({required this.name, required super.id});
 
-  final String id;
+  final String name;
+
 
   @override
   List<Object?> get props => _$props;
 }
 
-@autoequal
-class SubClass extends BaseClass {
-  const SubClass({required this.name, required super.id});
-
-  final String name;
-
-
-  @override
-  List<Object?> get props => [
-    ...super.props, // make sure to include the super props!
-    ..._$props,
-  ];
-}
-
-// --- OR ---
-
-@autoequalMixin
-class SubClass extends BaseClass with _$SubClassAutoequalMixin {
-  const SubClass({required this.name, required super.id});
-
-  final String name;
-}
-
 // generated code
 extension _$SubClassAutoequal on SubClass {
-  List<Object?> get _$props => [name];
-}
-
-mixin _$SubClassAutoequalMixin on Equatable {
-  @override
-  List<Object?> get props => [
-    ...super.props,
-    ..._$SubClassAutoequal(this as SubClass)._$props,
-  ];
+  List<Object?> get _$props => [name, id];
 }
 ```
-
----
 
 ## Field/Getter annotations
 
 ### Ignore
 
-You can include fields or getter methods in `props` by annotating them with `@ignoreAutoequal`.
+You can include fields or getter methods in `props` by annotating them with `@ignore`.
 
 ```dart
-@ignoreAutoequal
+@ignore
 final int random;
 ```
 
 ### Include
 
-You can include fields or getter methods in `props` by annotating them with `@includeAutoequal`.
+You can include fields or getter methods in `props` by annotating them with `@include`.
 
 ```dart
-@includeAutoequal
+@include
 String get id => _id;
 ```
 
@@ -182,7 +156,12 @@ targets:
       autoequal_gen:
         enabled: true
         options:
-          include_getters: true # default is false
+          ... # view options below
 ```
 
----
+### Options
+
+To view a comprehensive list of options, view the [source code](https://github.com/mrgnhnt96/autoequal/blob/f7f79436de3197beb81930e3537db3676bdd4787/autoequal_gen/lib/gen/settings_interface.dart)
+
+All options are optional.
+All option's keys are formatted in `snake_case`.
