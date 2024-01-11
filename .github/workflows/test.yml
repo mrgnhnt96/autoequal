@@ -42,8 +42,8 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base)
 
           echo "Formating..."
           echo "Main dirs: $MAIN_DIRS"
@@ -55,8 +55,8 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh lib base)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base)
 
           echo "Analyzing..."
           echo "Main dirs: $MAIN_DIRS"
