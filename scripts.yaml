@@ -1,0 +1,42 @@
+setup:
+  - dart pub get --precompile
+
+pub:
+  _get: dart pub run very_good_cli:very_good packages get
+  get:
+    (scripts): $pub:_get --recursive
+    gen:
+      - cd autoequal_gen
+      - $pub:_get
+    main:
+      - cd autoequal
+      - $pub:_get
+    test:
+      - cd autoequal_test
+      - $pub:_get
+
+build_runner:
+  build: dart pub run build_runner build --delete-conflicting-outputs
+  watch: dart pub run build_runner watch --delete-conflicting-outputs
+
+br:
+  b:
+    (scripts): $build_runner:build
+    test:
+      - cd autoequal_test
+      - $br:b
+  w:
+    (scripts): $build_runner:watch
+    test:
+      - cd autoequal_test
+      - $br:w
+
+core:
+  gen:
+    - $core:build
+    - sh ../scripts/transfer_core.sh
+  build:
+    - $br:b
+  watch:
+    - $br:w
+  transfer: sh ./scripts/transfer_core.sh

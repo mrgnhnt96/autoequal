@@ -1,29 +1,11 @@
-part of 'generator.dart';
-
-/// The extension for [EquatableType] to check annotated elements'
-/// autoequal types.
-extension on EquatableType {
-  bool get isClass => this == EquatableType.class_;
-
-  bool get isMixin => this == EquatableType.mixin;
-
-  bool get isNone => this == EquatableType.none;
-
-  String? get equatableName {
-    switch (this) {
-      case EquatableType.class_:
-        return 'Equatable';
-      case EquatableType.mixin:
-        return 'EquatableMixin';
-      case EquatableType.none:
-        return null;
-    }
-  }
-}
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
+import 'package:autoequal_gen/src/checkers/checkers.dart';
+import 'package:autoequal_gen/src/enums/equatable_type.dart';
 
 /// The extension for [ClassElement] to check if the annotated
 /// elements' inheritances are [Equatable].
-extension on ClassElement {
+extension ClassElementX on ClassElement {
   bool get usesEquatable => !equatableType.isNone;
 
   bool get equatableIsSuper {
@@ -59,7 +41,7 @@ extension on ClassElement {
   }
 }
 
-extension on Element {
+extension ElementX on Element {
   bool get isWithEquatableMixin {
     final Element element = this;
 
@@ -72,7 +54,7 @@ extension on Element {
     }
 
     return element.mixins.any(
-      (InterfaceType type) => _equatableMixin.isExactly(type.element),
+      (InterfaceType type) => equatableMixinChecker.isExactly(type.element),
     );
   }
 
@@ -81,7 +63,7 @@ extension on Element {
       return EquatableType.none;
     }
 
-    if (_equatable.isSuperOf(this)) {
+    if (equatableChecker.isSuperOf(this)) {
       return EquatableType.class_;
     } else if (isWithEquatableMixin) {
       return EquatableType.mixin;
