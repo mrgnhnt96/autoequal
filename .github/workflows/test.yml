@@ -42,8 +42,8 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
 
           dart format --set-exit-if-changed $MAIN_DIRS $TEST_DIRS
 
@@ -51,8 +51,8 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test)
-          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
 
           dart analyze --fatal-infos --fatal-warnings $MAIN_DIRS $TEST_DIRS
 
