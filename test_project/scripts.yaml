@@ -1,4 +1,8 @@
 test:
   - dart pub get
-  - dart run build_runner build --delete-conflicting-outputs
+  - $br:b
   - dart test --test-randomize-ordering-seed=random
+
+br:
+  b: dart run build_runner build --delete-conflicting-outputs
+  w: dart run build_runner watch --delete-conflicting-outputs
