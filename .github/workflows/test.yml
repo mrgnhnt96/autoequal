@@ -42,21 +42,19 @@ jobs:
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          if [ -d "test" ]; then
-            dart format lib test --output=none --set-exit-if-changed .
-          else
-            dart format lib --output=none --set-exit-if-changed .
-          fi
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
+
+          dart format --set-exit-if-changed $MAIN_DIRS $TEST_DIRS
 
       - name: Analyze the project's Dart code
         working-directory: ${{ matrix.package }}
         run: |
           set -e
-          if [ -d "test" ]; then
-            dart analyze lib test --fatal-infos
-          else
-            dart analyze lib --fatal-infos
-          fi
+          MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test)
+          TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen)
+
+          dart analyze --fatal-infos --fatal-warnings $MAIN_DIRS $TEST_DIRS
 
       - name: Run tests
         if: matrix.package == 'test_project'
