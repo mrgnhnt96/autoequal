@@ -45,6 +45,10 @@ jobs:
           MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
           TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
 
+          echo "Formating..."
+          echo "Main dirs: $MAIN_DIRS"
+          echo "Test dirs: $TEST_DIRS"
+
           dart format --set-exit-if-changed $MAIN_DIRS $TEST_DIRS
 
       - name: Analyze the project's Dart code
@@ -53,6 +57,10 @@ jobs:
           set -e
           MAIN_DIRS=$(sh ../scripts/get_dirs.sh . test .dart_tool)
           TEST_DIRS=$(sh ../scripts/get_dirs.sh test base gen .dart_tool)
+
+          echo "Analyzing..."
+          echo "Main dirs: $MAIN_DIRS"
+          echo "Test dirs: $TEST_DIRS"
 
           dart analyze --fatal-infos --fatal-warnings $MAIN_DIRS $TEST_DIRS
 
