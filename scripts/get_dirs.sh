@@ -24,11 +24,12 @@ for dir in $FOUND; do
     if [ -n "$IGNORE" ]; then
         for ignore in $IGNORE; do
             # check if dir is found within ignore
-            if [[ "$dir" == *"$ignore"* ]]; then
+            case "$dir" in
+            *"$ignore"*)
                 # continue to next iterable
                 continue 2
-            fi
-
+                ;;
+            esac
         done
     fi
 
