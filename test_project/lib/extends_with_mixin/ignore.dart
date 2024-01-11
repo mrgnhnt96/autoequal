@@ -11,7 +11,7 @@ class Ignore extends Equatable with _$IgnoreAutoequalMixin {
     this.three,
   });
 
-  @ignoreAutoequal
+  @ignore
   final String one;
   final String two;
   final String? three;

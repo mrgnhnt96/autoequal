@@ -4,6 +4,6 @@ const Autoequal autoequal = Autoequal();
 
 const Autoequal autoequalMixin = Autoequal(mixin: true);
 
-const IgnoreAutoequal ignoreAutoequal = IgnoreAutoequal();
+const IgnoreAutoequal ignore = IgnoreAutoequal();
 
-const IncludeAutoequal includeAutoequal = IncludeAutoequal();
+const IncludeAutoequal include = IncludeAutoequal();

@@ -11,7 +11,7 @@ class Ignore extends Equatable {
     this.three,
   });
 
-  @ignoreAutoequal
+  @ignore
   final String one;
   final String two;
   final String? three;

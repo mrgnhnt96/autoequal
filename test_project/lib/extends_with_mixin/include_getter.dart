@@ -7,6 +7,6 @@ part 'include_getter.g.dart';
 class IncludeGetter extends Equatable with _$IncludeGetterAutoequalMixin {
   const IncludeGetter();
 
-  @includeAutoequal
+  @include
   String get one => 'one';
 }

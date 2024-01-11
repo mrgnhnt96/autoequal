@@ -18,6 +18,6 @@ extension _$BaseAutoequal on Base {
 extension _$InheritedAutoequal on Inherited {
   List<Object?> get _$props => [
         two,
-        ...(this as Base).props,
+        ...(this as Base)._$props,
       ];
 }
