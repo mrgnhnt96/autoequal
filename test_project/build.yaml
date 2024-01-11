@@ -2,6 +2,11 @@ targets:
   $default:
     builders:
       autoequal_gen:
+        generate_for:
+          include:
+            - lib/**/*.dart
+          exclude:
+            - lib/base/*.dart
         enabled: true
         options:
           include_getters: false
