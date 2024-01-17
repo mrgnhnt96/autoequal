@@ -10,3 +10,4 @@ targets:
         enabled: true
         options:
           include_getters: false
+          auto_include: true
