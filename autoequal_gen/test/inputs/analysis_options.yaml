@@ -1,0 +1,3 @@
+analyzer:
+    errors:
+       undefined_identifier: ignore
