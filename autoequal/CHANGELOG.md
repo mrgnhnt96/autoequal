@@ -1,3 +1,8 @@
+# 0.9.1 | 1.17.2023
+
+- [generator] deps: Update range for path to support
+- [generator] tests: add generator tests
+
 # 0.9.0 | 1.11.2023
 
 - BREAKING: remove support for mixin
