@@ -1,4 +1,4 @@
-library generator;
+library;
 
 import 'dart:async' show FutureOr;
 
@@ -7,7 +7,6 @@ import 'package:autoequal_gen/src/visitors/class_visitor.dart';
 import 'package:autoequal_gen/src/writers/write_file.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// For class marked with @Autoequal annotation will be generated properties list List<Object>
@@ -28,8 +27,6 @@ final class AutoequalGenerator extends Generator {
 
     final generated = writeFile(visitor.nodes);
 
-    final output = generated.map((e) => e.accept(emitter)).join('\n');
-
-    return DartFormatter().format(output);
+    return generated.map((e) => e.accept(emitter)).join('\n');
   }
 }

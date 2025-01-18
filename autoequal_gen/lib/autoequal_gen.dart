@@ -1,4 +1,4 @@
-library autoequal_gen;
+library;
 
 import 'package:autoequal_gen/gen/settings.dart';
 import 'package:build/build.dart';
