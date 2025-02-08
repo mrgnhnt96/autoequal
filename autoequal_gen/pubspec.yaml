@@ -2,7 +2,7 @@ name: autoequal_gen
 description: |
   Code generator which can simplify work with 'equatable'.
   It will generate 'List<Object?> props' private extensions for all annotated classes.
-version: 0.9.2
+version: 0.9.3
 homepage: https://github.com/mrgnhnt96/autoequal
 issue_tracker: https://github.com/mrgnhnt96/autoequal/issues
 
@@ -15,7 +15,7 @@ dependencies:
   build: ^2.4.1
   code_builder: ^4.8.0
   change_case: ^2.2.0
-  dart_style: ">=2.3.4 <4.0.0"
+  dart_style: ">=3.0.0 <4.0.0"
   meta: ">=1.0.0 <2.0.0"
   source_gen: ">=1.4.0 <3.0.0"
   path: ">=1.0.0 <2.0.0"
@@ -23,8 +23,8 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.7
-  build_test: ^2.2.1
+  build_test: ^2.2.3
   equatable: ^2.0.5
-  generator_test: ^0.3.1
+  generator_test: ^0.4.1
   lints: ^3.0.0
   test: ^1.24.9
