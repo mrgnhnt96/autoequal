@@ -17,6 +17,6 @@ dev_dependencies:
   lints: ^3.0.0
   test: ^1.24.9
   derry: ^1.5.0
-  generator_test: ^0.3.1
+  generator_test: ^0.4.1
 
 scripts: scripts.yaml
