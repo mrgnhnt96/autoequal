@@ -1,3 +1,7 @@
+# 0.9.2 | 2.8.2025
+
+- Update dependencies
+
 # 0.9.1 | 1.17.2023
 
 - deps: Update range for path to support
