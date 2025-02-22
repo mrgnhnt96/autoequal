@@ -1,0 +1,22 @@
+test:
+  (command):
+    - dart pub get
+    - "{$test:gen}"
+    - "{$test:only}"
+  gen:
+    (command):
+      - "{$test:gen:files}"
+      - "{$build_runner:b}"
+    files: |
+      ROOT=$(dirname $0)/..
+      sh $ROOT/scripts/create_tests.sh
+  only: dart test --test-randomize-ordering-seed=random
+
+build_runner:
+  (aliases): br
+  build:
+    (aliases): b
+    (command): dart run build_runner build --delete-conflicting-outputs
+  watch:
+    (aliases): w
+    (command): dart run build_runner watch --delete-conflicting-outputs

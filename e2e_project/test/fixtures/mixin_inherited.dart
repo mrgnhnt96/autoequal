@@ -7,8 +7,5 @@ extension _$BaseAutoequal on Base {
 }
 
 extension _$InheritedAutoequal on Inherited {
-  List<Object?> get _$props => [
-        two,
-        one,
-      ];
+  List<Object?> get _$props => [two, one];
 }

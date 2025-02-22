@@ -3,8 +3,5 @@
 // **************************************************************************
 
 extension _$ExampleAutoequal on Example {
-  List<Object?> get _$props => [
-        name,
-        age,
-      ];
+  List<Object?> get _$props => [name, age];
 }

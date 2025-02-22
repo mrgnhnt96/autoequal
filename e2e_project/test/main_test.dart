@@ -41,7 +41,7 @@ void main() {
   ];
 
   for (final input in inputs) {
-    test('runs successfully', () async {
+    test('${input.input.first} runs successfully', () async {
       final generator = SuccessGenerator.fromBuilder(
         input.input,
         input.output,
