@@ -29,32 +29,67 @@ publish:
     - "{$test:e2e} --bail"
     - "{$format}"
     - "{$analyze}"
-    - "{$publish:pubspec}"
-    - dart pub publish
-    - "{$publish:commit}"
-    - "{$publish:tag}"
+    - |
+      # Update pubspec versions
+      DIR=autoequal_gen
+      {$publish:pubspec}
+
+      DIR=autoequal
+      {$publish:pubspec}
+
+    - |
+      # Publishing to pub.dev
+      DIR=autoequal_gen
+      {$publish:_to-pub}
+
+      DIR=autoequal
+      {$publish:_to-pub}
+
+    - "{$publish:_commit}"
+    - |
+      # Tagging and pushing to origin
+      DIR=autoequal_gen
+      {$publish:tag}
+
+      DIR=autoequal
+      {$publish:tag}
+
     - "{$publish:_push}"
+  _to-pub: |
+    if [ ! -f $DIR/needs_publishing.txt ]; then
+        exit 0
+    fi
+
+    rm $DIR/needs_publishing.txt
+
+    echo "Publishing $DIR"
+    cd $DIR && dart pub publish
   _version: |
     # get version from changelog
-    version=$(grep -m 1 "# " CHANGELOG.md | awk '{print $2}')
-
-  commit: |
-    "{$publish:_version}"
-
-    echo "Committing version $version"
-    git add .
-    git commit -m "v$version"
+    version=$(grep -m 1 "# " $DIR/CHANGELOG.md | awk '{print $2}')
 
   pubspec: |
-    "{$publish:_version}"
+    {$publish:_version}
 
-    sed -i '' "s/version: .*/version: $version/" pubspec.yaml
+    PUBSPEC_VERSION=$(grep -m 1 "version: " $DIR/pubspec.yaml | awk '{print $2}')
+
+    if [ "$version" = "$PUBSPEC_VERSION" ]; then
+      echo "Version $version is already published"
+      exit 0
+    fi
+
+    sed -i '' "s/version: .*/version: $version/" $DIR/pubspec.yaml
+    touch $DIR/needs_publishing.txt
 
   tag: |
-    "{$publish:_version}"
+    {$publish:_version}
 
     echo "Tagging version $version"
-    git tag -a "v$version" -m "v$version"
+    git tag -a "v$version" -m "v$version" || exit 0
+
+  _commit: |
+    git add .
+    git commit -m "bump version" || exit 0
 
   _push: |
     echo "Pushing to origin"
