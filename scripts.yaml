@@ -1,42 +1,62 @@
 setup:
   - dart pub get --precompile
 
-pub:
-  _get: dart pub run very_good_cli:very_good packages get
-  get:
-    (command): "{$pub:_get} --recursive"
-    gen:
-      - cd autoequal_gen
-      - "{$pub:_get}"
-    main:
-      - cd autoequal
-      - "{$pub:_get}"
-    test:
-      - cd autoequal_test
-      - "{$pub:_get}"
-
 build_runner:
-  build: dart pub run build_runner build --delete-conflicting-outputs
-  watch: dart pub run build_runner watch --delete-conflicting-outputs
-
-br:
-  b:
-    (command): "{$build_runner:build}"
-    test:
-      - cd autoequal_test
-      - "{$br:b}"
-  w:
-    (command): $build_runner:watch
-    test:
-      - cd autoequal_test
-      - "{$br:w}"
-
-core:
-  gen:
-    - "{$core:build}"
-    - sh ../command/transfer_core.sh
+  (aliases): br
   build:
-    - "{$br:b}"
+    (aliases): b
+    (command): dart pub run build_runner build --delete-conflicting-outputs
+
   watch:
-    - "{$br:w}"
-  transfer: sh ./command/transfer_core.sh
+    (aliases): w
+    (command): dart pub run build_runner watch --delete-conflicting-outputs
+
+_packages:
+  - autoequal
+  - autoequal_gen
+
+format: cd {$_packages} && dart format .
+analyze: cd {$_packages} && dart analyze .
+
+test:
+  gen: cd autoequal_gen && sip test
+  e2e: cd e2e_project && sip test
+
+publish:
+  (bail):
+  (command):
+    - "{$test:gen} --bail"
+    - "{$test:e2e} --bail"
+    - "{$format}"
+    - "{$analyze}"
+    - "{$publish:pubspec}"
+    - dart pub publish
+    - "{$publish:commit}"
+    - "{$publish:tag}"
+    - "{$publish:_push}"
+  _version: |
+    # get version from changelog
+    version=$(grep -m 1 "# " CHANGELOG.md | awk '{print $2}')
+
+  commit: |
+    "{$publish:_version}"
+
+    echo "Committing version $version"
+    git add .
+    git commit -m "v$version"
+
+  pubspec: |
+    "{$publish:_version}"
+
+    sed -i '' "s/version: .*/version: $version/" pubspec.yaml
+
+  tag: |
+    "{$publish:_version}"
+
+    echo "Tagging version $version"
+    git tag -a "v$version" -m "v$version"
+
+  _push: |
+    echo "Pushing to origin"
+    git push
+    git push --tags
