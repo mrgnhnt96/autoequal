@@ -1,3 +1,7 @@
+# 0.9.5 | 2.22.2025
+
+- Update dependencies
+
 # 0.9.4 | 2.8.2025
 
 - Update dependencies
