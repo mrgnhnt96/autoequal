@@ -7,6 +7,17 @@
 
 Provides [Dart Build System](https://pub.dev/packages/build) builder for generating `List<Object?> _$props` private extensions for classes using [Equatable](https://pub.dev/packages/equatable).
 
+## Compatibility fork
+
+This fork supports analyzer 11–14, build 4 and source_gen 4 for both
+`autoequal_gen` and `equatable_gen`. The legacy `autoequal_gen` package is
+retained from v0.9.5 so existing `@autoequal` / `@Autoequal()` annotations and
+`_$props` extensions remain supported alongside `@generateProps`.
+
+Use the matching Git package path (`autoequal_gen` or `equatable_gen`) and pin
+the dependency to a tested commit. Annotation packages remain unchanged:
+`autoequal: ^0.9.1` and `equatable_annotations: ^1.2.0`.
+
 ## Usage
 
 ### Setup
