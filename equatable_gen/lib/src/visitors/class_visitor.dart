@@ -148,7 +148,7 @@ bool _includeField(
     return true;
   }
 
-  if (element.isSynthetic) {
+  if (element.isOriginGetterSetter) {
     if (settings.includeGetters) {
       return true;
     }

@@ -1,3 +1,10 @@
+## Unreleased
+
+- Support analyzer 11–14 using `isOriginGetterSetter` in place of the removed
+  `FieldElement.isSynthetic` API.
+- Add regression coverage for annotation-driven generation, inherited fields,
+  private/static fields and explicit getter inclusion.
+
 ## 1.3.2 | 3.27.26
 
 ### Fixes

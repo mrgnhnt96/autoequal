@@ -5,7 +5,10 @@ import 'package:generator_test/generator_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final files = {'private_class.dart': 'private_class.dart'};
+  final files = {
+    'private_class.dart': 'private_class.dart',
+    'field_semantics.dart': 'field_semantics.dart',
+  };
 
   for (final MapEntry(key: input, value: output) in files.entries) {
     test('Runs $input', () async {
@@ -13,7 +16,9 @@ void main() {
         [input],
         [output],
         equatableGenerator,
-        options: Settings.defaults(autoInclude: true).toJson(),
+        options: Settings.defaults(
+          autoInclude: input == 'private_class.dart',
+        ).toJson(),
       );
 
       final rw = TestReaderWriter(rootPackage: 'a');
